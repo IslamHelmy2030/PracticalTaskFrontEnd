@@ -1,0 +1,71 @@
+<!--Add Button Start-->
+<div class="header-row row mb-3 mt-5 ml-5 mr-5 align-items-center">
+  <div class="buttn-rap col-2">
+    <button type="button" class="btn btn-outline-primary w-100" (click)="showAddUserModal('addUserModal')">
+      Add Users
+    </button>
+  </div>
+</div>
+<!--Add Button End-->
+<!--ngx Data Table Start-->
+
+<div class="table-content ml-3 mr-3">
+  <ngx-datatable #userTable class="material" [headerHeight]="50" [limit]="5" [columnMode]="'force'" [footerHeight]="50"
+    [rowHeight]="'auto'" [rows]="users">
+    <ngx-datatable-column name="username">
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-username'] = true" *ngIf="!editing[rowIndex + '-username']">
+          {{value}}
+        </span>
+        <input autofocus (blur)="updateValue($event, row,'username', rowIndex)" *ngIf="editing[rowIndex+ '-username']"
+          type="text" [value]="value" />
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Delete User">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <button type="button" mdbBtn class="btn btn-danger" (click)="showDeleteUserModal('deleteUserModal', row)">
+          Delete
+        </button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+<!--ngx Data Table End-->
+
+<!--Add User Modal-->
+<ngx-smart-modal #addUserModal identifier="addUserModal">
+  <div class="header">
+    <h5>Add User</h5>
+  </div>
+  <div>
+    <form [formGroup]="addUserForm" (ngSubmit)="addNewUser()">
+      <div class="form-group">
+        <input class="form-control" placeholder="Enter User Name" type="text" formControlName="username" name="username" />
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="addUserForm.invalid">
+        Add User
+      </button>
+      <button type="button" class="btn btn-outline-danger ml-3" (click)="addUserModal.close()">
+        Close
+      </button>
+    </form>
+  </div>
+</ngx-smart-modal>
+
+<!--Delete User Modal-->
+<ngx-smart-modal #deleteUserModal identifier="deleteUserModal">
+  <div class="header">
+    <h5>Delete Role</h5>
+  </div>
+  <div>
+    <h5>Are You Sure You Want To Delete This User</h5>
+  </div>
+  <div>
+    <button type="submit" mdbBtn class="btn btn-success relative waves-light" (click)="deleteUser()">
+      Yes
+    </button>
+    <button type="button" mdbBtn class="btn btn-danger relative waves-light" (click)="deleteUserModal.close()">
+      No
+    </button>
+  </div>
+</ngx-smart-modal>
