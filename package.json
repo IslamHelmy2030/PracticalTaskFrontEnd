@@ -23,7 +23,7 @@
     "bootstrap": "^4.2.1",
     "bootstrap-material-design": "^4.1.1",
     "core-js": "^2.5.4",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "ngx-smart-modal": "^7.1.1",
     "ngx-toastr": "^9.1.1",
     "popper": "^1.0.1",
